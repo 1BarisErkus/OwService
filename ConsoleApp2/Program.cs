@@ -1,39 +1,45 @@
-﻿using ConsoleApp1.DatabaseOperations.Abstracts;
+﻿using ConsoleApp2.Entities.Models.MainDatabase;
+using ConsoleApp2.Repositories.Concretes;
+using ConsoleApp2.Repositories.Concretes.MainDatabase;
+using ConsoleApp2.Repositories.Concretes.UsDatabase;
+using ConsoleApp2.Repositories.Contracts;
+using ConsoleApp2.Repositories.Contracts.MainDatabase;
+using ConsoleApp2.Repositories.Contracts.UsDatabase;
+using ConsoleApp2.Services.Concretes;
+using ConsoleApp2.Services.Concretes.MainDatabase;
+using ConsoleApp2.Services.Concretes.UsDatabase;
+using ConsoleApp2.Services.Contracts;
+using ConsoleApp2.Services.Contracts.MainDatabase;
+using ConsoleApp2.Services.Contracts.UsDatabase;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Timers;
-using VardabitService.DatabaseOperations;
-using VardabitService.DatabaseOperations.Concretes;
-using VardabitService.DatabaseOperations.Context;
 
 namespace ConsoleApp2
 {
-    internal class Program
+    public class Program
     {
+        private static IOperations operations;
         static Timer timer;
-        static MainDatabaseContext mainDatabaseContext;
-        static UsDatabaseContext usDatabaseContext;
-        static StokManager stokManager;
-        static VStokManager vstokManager;
-        static Operations operations;
         static void Main(string[] args)
         {
             ServiceProvider serviceProvider = new ServiceCollection()
-                                           .AddTransient<IStokService, StokManager>()
-                                           .AddTransient<IVStokService, VStokManager>()
-                                           .BuildServiceProvider();
-
-
-            mainDatabaseContext = new MainDatabaseContext();
-            usDatabaseContext = new UsDatabaseContext();
-            stokManager = new StokManager(mainDatabaseContext);
-            vstokManager = new VStokManager(usDatabaseContext);
-            operations = new Operations(stokManager, vstokManager);
+                .AddScoped<IStokService, StokManager>()
+                .AddScoped<IVStokService, VStokManager>()
+                .AddScoped<IOperations, Operations>()
+                .AddScoped<IRepositoryManager, RepositoryManager>()
+                .AddScoped<IStokRepository, StockRepository>()
+                .AddScoped<IVStokRepository, VStokRepository>()
+                .AddScoped<IServiceManager, ServiceManager>()
+                .AddScoped<IServiceManager, ServiceManager>()
+                .BuildServiceProvider();
 
             timer = new Timer();
-            timer.Interval = 5000;
+            timer.Interval = 10000;
             timer.Enabled = true;
             timer.Elapsed += Timer_Elapsed;
+
+            operations = serviceProvider.GetRequiredService<IOperations>();
 
             Console.ReadLine();
         }

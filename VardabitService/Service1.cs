@@ -9,11 +9,6 @@ namespace VardabitService
     public partial class Service1 : ServiceBase
     {
         Timer timer;
-        MainDatabaseContext mainDatabaseContext;
-        UsDatabaseContext usDatabaseContext;
-        StokManager stokManager;
-        VStokManager vstokManager;
-        Operations operations;
         public Service1()
         {
             InitializeComponent();
@@ -21,11 +16,6 @@ namespace VardabitService
 
         protected override void OnStart(string[] args)
         {
-            mainDatabaseContext = new MainDatabaseContext();
-            usDatabaseContext = new UsDatabaseContext();
-            stokManager = new StokManager(mainDatabaseContext);
-            vstokManager = new VStokManager(usDatabaseContext);
-            operations = new Operations(stokManager, vstokManager);
 
             timer = new Timer();
             timer.Interval = 5000;
@@ -35,7 +25,7 @@ namespace VardabitService
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            operations.WriteOnDbForStok();
+            Operations.WriteOnDbForStok();
         }
 
         protected override void OnStop()

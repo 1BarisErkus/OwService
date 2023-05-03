@@ -1,8 +1,11 @@
-﻿using Entities.Models.UsDatabase;
-using Repositories.Contracts;
-using Services.Contracts.UsDatabase;
+﻿using ConsoleApp2.Entities.Models.UsDatabase;
+using ConsoleApp2.Repositories.Contracts;
+using ConsoleApp2.Services.Contracts.UsDatabase;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Services.Concretes.UsDatabase
+namespace ConsoleApp2.Services.Concretes.UsDatabase
 {
     public class VStokManager : IVStokService
     {

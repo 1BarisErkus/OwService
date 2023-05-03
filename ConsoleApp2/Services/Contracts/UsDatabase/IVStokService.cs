@@ -1,6 +1,8 @@
-﻿using Entities.Models.UsDatabase;
+﻿using ConsoleApp2.Entities.Models.UsDatabase;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Services.Contracts.UsDatabase
+namespace ConsoleApp2.Services.Contracts.UsDatabase
 {
     public interface IVStokService
     {

@@ -1,22 +1,20 @@
 ﻿using ConsoleApp1.DatabaseOperations.Abstracts;
+using VardabitService.DatabaseOperations.Concretes;
+using VardabitService.DatabaseOperations.Context;
 using VardabitService.Models.UsDatabase;
 
 namespace VardabitService.DatabaseOperations
 {
-    public class Operations
+    public static class Operations
     {
-        private readonly IStokService _stokManager;
-        private readonly IVStokService _vStokManager;
-
-        public Operations(IStokService stokManager, IVStokService vStokManager)
+        public async static void WriteOnDbForStok()
         {
-            _stokManager = stokManager;
-            _vStokManager = vStokManager;
-        }
+            var mainDatabaseContext = new MainDatabaseContext();
+            var usDatabaseContext = new UsDatabaseContext();
+            var stokManager = new StokManager(mainDatabaseContext);
+            var vstokManager = new VStokManager(usDatabaseContext);
 
-        public async void WriteOnDbForStok()
-        {
-            var stokDatas = await _stokManager.GetAllAsync();
+            var stokDatas = await stokManager.GetAllAsync();
 
             for (int i = 0; i < stokDatas.Count; i++)
             {
@@ -27,11 +25,11 @@ namespace VardabitService.DatabaseOperations
                     Amount = stokDatas[i].Price
                 };
 
-                var vData = await _vStokManager.GetVStok(stokDatas[i].Name);
+                var vData = await vstokManager.GetVStok(stokDatas[i].Name);
                 if (vData != null)
                     continue;
                 
-                await _vStokManager.AddAsync(obje);
+                await vstokManager.AddAsync(obje);
 
             }
         }

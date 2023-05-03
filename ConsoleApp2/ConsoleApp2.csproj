@@ -157,23 +157,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseOperations\Abstracts\IMainDatabaseService.cs" />
-    <Compile Include="DatabaseOperations\Abstracts\IRepositoryService.cs" />
-    <Compile Include="DatabaseOperations\Abstracts\IStokService.cs" />
-    <Compile Include="DatabaseOperations\Abstracts\IUsDatabaseService.cs" />
-    <Compile Include="DatabaseOperations\Abstracts\IVStokService.cs" />
-    <Compile Include="DatabaseOperations\Concretes\MainDatabaseManager.cs" />
-    <Compile Include="DatabaseOperations\Concretes\RepositoryManager.cs" />
-    <Compile Include="DatabaseOperations\Concretes\StokManager.cs" />
-    <Compile Include="DatabaseOperations\Concretes\UsDatabaseManager.cs" />
-    <Compile Include="DatabaseOperations\Concretes\VStokManager.cs" />
-    <Compile Include="DatabaseOperations\Context\MainDatabaseContext.cs" />
-    <Compile Include="DatabaseOperations\Context\UsDatabaseContext.cs" />
-    <Compile Include="DatabaseOperations\Operations.cs" />
-    <Compile Include="Models\MainDatabase\Stok.cs" />
-    <Compile Include="Models\UsDatabase\VStok.cs" />
+    <Compile Include="Entities\Models\MainDatabase\Stok.cs" />
+    <Compile Include="Entities\Models\UsDatabase\VStok.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Concretes\Context\MainDatabaseContext.cs" />
+    <Compile Include="Repositories\Concretes\Context\UsDatabaseContext.cs" />
+    <Compile Include="Repositories\Concretes\MainDatabase\MainDatabaseRepository.cs" />
+    <Compile Include="Repositories\Concretes\MainDatabase\StockRepository.cs" />
+    <Compile Include="Repositories\Concretes\RepositoryManager.cs" />
+    <Compile Include="Repositories\Concretes\UsDatabase\UsDatabaseRepository.cs" />
+    <Compile Include="Repositories\Concretes\UsDatabase\VStokRepository.cs" />
+    <Compile Include="Repositories\Contracts\IRepositoryManager.cs" />
+    <Compile Include="Repositories\Contracts\MainDatabase\IMainDatabaseRepository.cs" />
+    <Compile Include="Repositories\Contracts\MainDatabase\IStokRepository.cs" />
+    <Compile Include="Repositories\Contracts\UsDatabase\IUsDatabaseRepository.cs" />
+    <Compile Include="Repositories\Contracts\UsDatabase\IVStokRepository.cs" />
+    <Compile Include="Services\Concretes\MainDatabase\StokManager.cs" />
+    <Compile Include="Services\Concretes\Operations.cs" />
+    <Compile Include="Services\Concretes\ServiceManager.cs" />
+    <Compile Include="Services\Concretes\UsDatabase\VStokManager.cs" />
+    <Compile Include="Services\Contracts\IOperations.cs" />
+    <Compile Include="Services\Contracts\IServiceManager.cs" />
+    <Compile Include="Services\Contracts\MainDatabase\IStokService.cs" />
+    <Compile Include="Services\Contracts\UsDatabase\IVStokService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
